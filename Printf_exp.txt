@@ -1,0 +1,150 @@
+
+PRINTF ->
+
+Cosas a resolver:
+
+	- Funciones variádicas
+	- va_start
+	- va_arg
+	- va_copy
+	- va_end
+
+Parte obligatoria -->
+libftprintf.a
+
+Archivos a entregar: Makefile, *.h, */*.h, *.c, */*.c
+			*/*. --> hace referencia a todos los archivos con la
+			extensión .loquesea en todos los subdirectorios del directorio 
+			actual.
+			
+Funciones autorizadas: malloc, free, write, va_start, va_arg, va_copy, va_end
+Se permite usar libft.h
+
+Prototipo de fprintf: int	ft_printf(char const *, ...);
+
+No implementar la gestión del buffer del printf() original.
+Implementar conversiones: cspdiuxX%
+Mi prinf se comparará con el printf original
+Usar comando ar para crear la librería.
+El archivo libftprintf.a debe ser creado en la raíz del repositorio.
+
+Conversiones:
+	%c : imprime solo un caracter
+	%s : imprime una string (como se define por defecto en C).
+	%p : el puntero void * dado como argumento se imprime en formato hexadecimal.
+	%d : imprime un número decimal (base 10).
+	%i : imprime un entero en base 10.
+	
+	// Se supone que %d y %i imprimen números enteros con signo en base 10.
+	//Tienen una leve diferencia en scanf --> %i puede interpretar el valor
+	//ingresado como decimal si se ingresa sin un prefijo, octal si empieza con 0
+	//y hexadecimal si empieza con 0X u 0x.
+	
+	%u : imprime un número decimal (base 10) sin signo.
+	%x : imprime un número hexadecimal (base 16) en minúscula.
+	%X : imprime un número hexadecimal (base 16) en mayúscula.
+	
+	//Cómo funcionan x y X --> El valor que se imprime viene de un unsigned int.
+	//En hexadecimal, cada dígito representa 4 bits, por lo que los números
+	//hexadecimales suelen ser más compactos para representar valores binarios.
+	//En hexadecimal los dígitos van en el rango 0-9 y a-f o  A-F, donde
+	a o A es 10, b o B es 11 ...
+		Es decir, en hexadecimal, los dígitos son: 123456789abcdef
+	Cómo se convierte un unsigned int a hexadecimal?
+		dividir entre 16
+		guardar el residuo (que estará entre 0 y 15) 
+			como último dígito hexadecimal
+		repetir la división usando el cociente resultante
+		repetir hasta que el cociente sea 0
+		El número hexadecimal final es la concatenación de los residuos
+			en orden inverso.
+		
+	
+	
+	%% : imprime el símbolo del porcentaje.
+
+Resolviendo cosas:
+
+FUNCIONES VARIÁDICAS --> son aquellas que pueden recibir un número variable de argumentos. 
+La función más común que utiliza este tipo de argumentos es printf.
+Para definir una función variádica se utiliza el encabezado stdarg.h, que proporciona macros para manejar estos argumentos.
+
+Componentes clave:
+VA_LIST --> tipo que se usa para acceder a los argumentos.
+VA_START --> macro que inicializa va_list con el último parámetro fijo de la función.
+VA_ARG --> macro que recupera el siguiente argumento de la lista. Va en orden, si ya ha saltado previamente al segundo argumento, la siguiente vez saltará al tercero.
+VA_COPY --> macro que crea una copia de un objeto de va_list.
+VA_END --> macro que finaliza el uso de va_list.
+
+¿CÓMO HACER EL PRINTF?
+
+Biblioteca <stdarg.h>
+
+Definir función int	ft_printf(char const *str, ...) --> depende del primer argumento, que en este caso es el formato, para determinar cuántos y qué tipo de argumentos se van a procesar.
+
+int	ft_printf(char const *str, ...);
+{
+	va_list	arg; //declarar lista de argumentos
+	va_start(arg, str); //inicializarla
+	int	count; //para contar el número de caracteres impresos (??)
+
+	count = 0;
+	while (*str)
+	{
+		if (*str == '%')
+		{ //si encontramos un especificador
+			str ++; //saltamos al siguiente caracter
+			.. //y llamamos a otra función con argumentos: 
+			   //arg, (char *) str, count supongo que para que
+			   //procese el caracter que viene después,
+			   //que es el que indica cómo tiene que tratar el siguiente 
+			   //argumento (en qué formato imprimir, si int, str, etc)
+		}
+		else
+		{
+			ft_putchar(*str, count) //*si estamos en un caracter normal,
+			               que no es ni % ni la letra que va después, 
+					hacemos putchar. 
+					El count hace referencia a la cantidad de
+					caracteres que se imprimen. El count ++
+					tendrá que ir en las funciones que impriman
+					segun el formato especificado (putchar, etc)*/
+		}
+		str ++; //pasamos al siguiente caracter
+	}
+	va_end(arg); //finalizamos el uso de la lista
+	return (count); //devolvemos el número total de caracteres impresos
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
