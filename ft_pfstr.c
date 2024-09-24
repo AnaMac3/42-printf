@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_pfstr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amacarul <amacarul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/23 14:54:22 by amacarul          #+#    #+#             */
-/*   Updated: 2024/09/24 14:53:34 by amacarul         ###   ########.fr       */
+/*   Created: 2024/09/24 12:46:38 by amacarul          #+#    #+#             */
+/*   Updated: 2024/09/24 14:56:16 by amacarul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
-# include <stdarg.h>
-# include <unistd.h>
-# include <stddef.h>
+#include "libftprintf.h"
 
-int		ft_printf(char const *str, ...);
-void	ft_pfchar(char c, size_t count);
-void	ft_pfstr(char *s, size_t count);
-void	ft_pfnbr(int n, size_t count);
-void	ft_pfunsgn(unsigned int n, size_t count);
-void	ft_pfhex(unsigned int n, int mode, size_t count);
+void	ft_pfstr(char *s, size_t count)
+{
+	int	i;
 
-#endif
+	i = 0;
+	while (s[i] != '\0')
+	{
+		ft_pfchar(s[i], count);
+		i ++;
+	}
+}

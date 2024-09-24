@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_pfunsgn.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amacarul <amacarul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/23 14:54:22 by amacarul          #+#    #+#             */
-/*   Updated: 2024/09/24 14:53:34 by amacarul         ###   ########.fr       */
+/*   Created: 2024/09/24 11:23:55 by amacarul          #+#    #+#             */
+/*   Updated: 2024/09/24 14:55:54 by amacarul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
-# include <stdarg.h>
-# include <unistd.h>
-# include <stddef.h>
+#include "libftprintf.h"
 
-int		ft_printf(char const *str, ...);
-void	ft_pfchar(char c, size_t count);
-void	ft_pfstr(char *s, size_t count);
-void	ft_pfnbr(int n, size_t count);
-void	ft_pfunsgn(unsigned int n, size_t count);
-void	ft_pfhex(unsigned int n, int mode, size_t count);
+void	ft_pfunsgn(unsigned int n, size_t count)
+{
+	unsigned int	n_temp;
+	unsigned int	divisor;
+	int				digit;
 
-#endif
+	n_temp = n;
+	divisor = 1;
+	while (n_temp > 9)
+	{
+		n_temp /= 10;
+		divisor *= 10;
+	}
+	while (divisor > 0)
+	{
+		digit = (n / divisor) % 10;
+		ft_pfchar(digit + '0', count);
+		divisor /= 10;
+	}
+}
