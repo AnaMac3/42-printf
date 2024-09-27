@@ -6,13 +6,13 @@
 /*   By: amacarul <amacarul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 12:57:35 by amacarul          #+#    #+#             */
-/*   Updated: 2024/09/24 14:56:53 by amacarul         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:33:55 by amacarul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static void	is_positive(int n, size_t count)
+static void	is_positive(int n, size_t *count)
 {
 	int	n_temp;
 	int	digit;
@@ -33,11 +33,14 @@ static void	is_positive(int n, size_t count)
 	}
 }
 
-static void	is_negative(int n, size_t count)
+static void	is_negative(int n, size_t *count)
 {
 	if (n == -2147483648)
+	{
 		ft_pfstr("-2147483648", count);
-	else if (n < 0)
+		return ;
+	}
+	else
 	{
 		ft_pfchar('-', count);
 		n = -n;
@@ -45,7 +48,7 @@ static void	is_negative(int n, size_t count)
 	}
 }
 
-void	ft_pfnbr(int n, size_t count)
+void	ft_pfnbr(int n, size_t *count)
 {
 	if (n < 0)
 		is_negative(n, count);

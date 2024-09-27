@@ -6,14 +6,14 @@
 /*   By: amacarul <amacarul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:18:53 by amacarul          #+#    #+#             */
-/*   Updated: 2024/09/24 14:56:12 by amacarul         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:22:59 by amacarul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	ft_pfchar(char c, size_t count)
+void	ft_pfchar(char c, size_t *count)
 {
 	write(1, &c, 1);
-	count ++;
+	(*count) += 1;
 }

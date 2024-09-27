@@ -6,13 +6,13 @@
 /*   By: amacarul <amacarul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:19:39 by amacarul          #+#    #+#             */
-/*   Updated: 2024/09/24 14:56:48 by amacarul         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:24:17 by amacarul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	ft_pfhex(unsigned int n, int mode, size_t count)
+void	ft_pfhex(unsigned int n, int mode, size_t *count)
 {
 	unsigned int	n_temp;
 	unsigned int	divisor;
